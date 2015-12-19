@@ -10,14 +10,16 @@
 #include "Databas.h"
 #include "Avbokning.h"
 
-Avbokning::Avbokning(string typ,
-                     string objektnamn, 
+Avbokning::Avbokning(string salnamn,
+                     string personalnamn,
+                     string utrustningnamn,
                      const double start_tid, 
                      const double slut_tid, 
                      const int dag) 
     : 
-    typ{typ},
-    objektnamn{objektnamn}, 
+    salnamn{salnamn},
+    personalnamn{peronsalnamn},
+    utrustningnamn{utrustningnamn},
     start_tid{start_tid}, 
     slut_tid{slut_tid}, 
     dag{dag}
@@ -27,14 +29,19 @@ Avbokning::Avbokning(string typ,
 }
 
 //Diverse get-funktioner
-string Avbokning::get_typ() const
+string Avbokning::get_salnamn() const
 {
-    return typ;
+    return salnamn;
 }
 
-string Avbokning::get_objektnamn() const
+string Avbokning::get_personalnamn() const
 {
-    return objektnamn;
+    return personalnamn;
+}
+
+string Avbokning::get_utrustningnamn() const
+{
+    return utrustningnamn;
 }
 
 double Avbokning::get_start_tid() const
