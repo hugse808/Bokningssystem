@@ -35,25 +35,29 @@ private slots:
     void on_doubleSpinBox_valueChanged(double in_sluttid);
     void on_spinBox_valueChanged(int dag1);
     void on_pushButton_2_clicked();
-    void on_comboBox_currentTextChanged(const QString vobjektnamn);
-    void make_Bokning(std::string stdobjekttyp,
-                      std::string stdobjektnamn,
+    void on_sal_comboBox_currentTextChanged(const QString in_sal);
+    void on_pers_comboBox_currentTextChanged(const QString in_pers);
+    void on_utr_comboBox_currentTextChanged(const QString in_utr);
+    void make_Bokning(std::string stdsalnamn,
+                      std::string stdpersonalnamn,
+                      std::string stdutrustningnamn,
                       double start_tid,
                       double slut_tid,
                       int dag);
-    void on_radioButton_3_clicked();
-    void on_radioButton_2_clicked();
-    void on_radioButton_clicked();
     bool minuter_check(double val);
+
+
 
 private:
     //Datamedlemmar
     Ui::bokningsmeny *ui;
 
-    QString Qobjekttyp{""};
-    QString Qobjektnamn;
-    std::string stdobjekttyp;
-    std::string stdobjektnamn;
+    QString Qsalnamn{""};
+    QString Qpersonalnamn{""};
+    QString Qutrustningnamn{""};
+    std::string stdsalnamn;
+    std::string stdpersonalnamn;
+    std::string stdutrustningnamn;
     double start_tid{00.00};
     double slut_tid{00.00};
     int dag{1};
