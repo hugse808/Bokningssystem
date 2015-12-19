@@ -35,7 +35,7 @@ int main(int argc, char **argv)
             query.exec("CREATE TABLE IF NOT EXISTS personal (typ TEXT, namn TEXT, efternamn TEXT, specialitet TEXT)");
             query.exec("CREATE TABLE IF NOT EXISTS salar (typ TEXT, namn TEXT, specialitet TEXT, kapacitet TEXT)");
             query.exec("CREATE TABLE IF NOT EXISTS utrustning (typ TEXT, namn TEXT, specialitet TEXT)");
-            query.exec("CREATE TABLE IF NOT EXISTS bokning (typ TEXT, objektnamn TEXT, start_tid TEXT, slut_tid TEXT, dag TEXT)");
+            query.exec("CREATE TABLE IF NOT EXISTS bokning (salnamn TEXT, personalnamn TEXT, utrustningnamn TEXT, start_tid TEXT, slut_tid TEXT, dag TEXT)");
 
            //query.exec("DELETE FROM bokning");
 
