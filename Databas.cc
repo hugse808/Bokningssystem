@@ -285,7 +285,27 @@ QVector<QString> Databas::bokning_select(const QString Qobjekttyp,
 }
 
 
+/* ------allasal _select--------
+ *Plockar ut alla tider en specifik sal är bokad på*/
+/*QSqlQuery Databas::allasal_select(...)
+{
+  QSqlQuery query;
+  query.exec("SELECT * FROM bokning WHERE typ = (:Qobjekttyp) AND"
+  "Qobjektnamn = (:Qobjektnamn)");
+	      
+  return query;
+}
+*/
+/*------ allabokning_select--------
+ *Plockar ut alla bokningar under vald dag*/
+/*QSqlQuery Databas::allabokning_select(...)
+{
+  QsqlQuery query;
+  query.exec("SELECT * FROM bokning WHERE Qdag = (:Qdag)");
 
+  return query;
+}
+*/
 
 /*--------- Sjukhus_select----------
  * Plockar ut från table personal, salar eller utrustning åt
