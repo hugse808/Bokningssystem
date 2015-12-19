@@ -33,7 +33,7 @@ int main(int argc, char **argv)
             qDebug( "Ansluten!");
             QSqlQuery query;
             query.exec("CREATE TABLE IF NOT EXISTS personal (typ TEXT, namn TEXT, efternamn TEXT, specialitet TEXT)");
-            query.exec("CREATE TABLE IF NOT EXISTS salar (typ TEXT, namn TEXT, efternamn TEXT, specialitet TEXT)");
+            query.exec("CREATE TABLE IF NOT EXISTS salar (typ TEXT, namn TEXT, specialitet TEXT, kapacitet TEXT)");
             query.exec("CREATE TABLE IF NOT EXISTS utrustning (typ TEXT, namn TEXT, specialitet TEXT)");
             query.exec("CREATE TABLE IF NOT EXISTS bokning (typ TEXT, objektnamn TEXT, start_tid TEXT, slut_tid TEXT, dag TEXT)");
 
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 
 
  /*  Personal* P1 = new Personal
-           {"Personal", "Marija", "Dahm", "Läkare"};
+           {"Personal", "Marija", "Dahm", "Kardiolog"};
 
        Personal* P2 = new Personal
            {"Personal", "Alex", "Mourad", "Radiolog"};
