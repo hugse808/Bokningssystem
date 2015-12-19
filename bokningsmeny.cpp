@@ -35,6 +35,7 @@ bokningsmeny::bokningsmeny(QWidget *parent) :
         ui->sal_comboBox->addItem(namn + " (" + spec + ")");
     }
     //Lägger in personal i pers_combobox
+    ui->pers_comboBox->addItem("");
     QVector<QString> perslista = databasobjekt.sjukhus_select("personal");
     for(int i{0}; i < (perslista.length()/3); i++)
     {
@@ -44,6 +45,7 @@ bokningsmeny::bokningsmeny(QWidget *parent) :
         ui->pers_comboBox->addItem(namn + " " + enamn + " (" + spec + ")");
     }
     //Lägger in utrustning
+    ui->utr_comboBox->addItem("");
     QVector<QString> utrlista = databasobjekt.sjukhus_select("utrustning");
     for(int i{0}; i < (utrlista.length()/2); i++)
     {
@@ -96,7 +98,7 @@ void bokningsmeny::make_Bokning(std::string stdsalnamn,
                                 double slut_tid,
                                 int dag)
 {
-    Bokning(stdsalnamn, stdpersonalnamn, stdutrustningnamn, start_tid, slut_tid, dag);
+    //Bokning(stdsalnamn, stdpersonalnamn, stdutrustningnamn, start_tid, slut_tid, dag);
 }
 
 void bokningsmeny::on_pushButton_2_clicked()
