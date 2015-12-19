@@ -17,8 +17,9 @@ class Avbokning
 {
 public:
 //Defaultkonstruktor
-    Avbokning(string typ,
-              string objektnamn,
+    Avbokning(string salnamn,
+              string personalnamn,
+              string utrustningnamn,
               const double start_tid,
               const double slut_tid,
               const int dag);
@@ -27,16 +28,18 @@ public:
     ~Avbokning() = default;
 
     //Medlemsfunktioner
-    string get_typ() const;
-    string get_objektnamn() const;
+    string get_salnamn() const;
+    string get_personalnamn() const;
+    string get_utrustningnamn() const;
     double get_start_tid() const;
     double get_slut_tid() const;
     int get_dag() const;
 
 private:
     //Datamedlemmar
-    string typ{};
-    string objektnamn{};
+    string salnamn{};
+    string personalnamn{};
+    string utrustningnamn{};
     double start_tid{};
     double slut_tid{};
     int dag{};
