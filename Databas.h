@@ -38,11 +38,16 @@ public:
     void bokning_insert(const Bokning& objekt);
     void avbokning_delete(const Avbokning& objekt);
 
-    QVector<QString> bokning_select(const QString Qobjekttyp,
-                                    const QString Qobjektnamn,
-                                    const QString Qstart_tid,
-                                    const QString Qslut_tid,
-                                    const QString Qdag);
+    QVector<QString> bokning_select(const QString salnamn,
+                                         const QString personalnamn,
+                                         const QString utrustningnamn
+                                         const QString start_tid,
+                                         const QString slut_tid,
+                                         const QString dag);
+                                         
+    QVector<QString> allasal_select(const QString salnamn);
+    
+    QVector<QString> allabokning_select(const QString dag);
 
     QVector<QString> sjukhus_select(const QString alternativ);
 
