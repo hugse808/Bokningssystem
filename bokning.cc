@@ -10,14 +10,16 @@
 #include "bokning.h"
 #include "Databas.h"
 
-Bokning::Bokning(string stdobjekttyp,
-                 string stdobjektnamn,
+Bokning::Bokning(string stdsalnamn,
+                 string stdpersonalnamn,
+                 string stdutrustningnamn,
                  const double start_tid,
                  const double slut_tid,
                  const int dag)
     : 
-    typ{stdobjekttyp},
-    objektnamn{stdobjektnamn},
+    salnamn{stdsalnamn},
+    personalnamn{stdpersonalnamn},
+    utrustningnamn{stdutrustningnamn},
     start_tid{start_tid},
     slut_tid{slut_tid},
     dag{dag}
@@ -26,14 +28,19 @@ Bokning::Bokning(string stdobjekttyp,
     databasobjekt.bokning_insert(*this);
 }
 
-string Bokning::get_typ() const
+string Bokning::get_salnamn() const
 {
-    return typ;
+    return salnamn;
 }
 
-string Bokning::get_objektnamn() const
+string Bokning::get_personalnamn() const
 {
-    return objektnamn;
+    return personalnamn;
+}
+
+string Bokning::get_utrustningnamn() const
+{
+  return utrustningnamn;
 }
 
 double Bokning::get_start_tid() const
