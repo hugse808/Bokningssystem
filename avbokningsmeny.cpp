@@ -24,6 +24,17 @@ avbokningsmeny::avbokningsmeny(QWidget *parent) :
     ui->doubleSpinBox_2->setMaximum(23.59);
     ui->spinBox->setMaximum(31);
     ui->spinBox->setMinimum(1);
+
+    Databas databasobjekt;
+    //Lägger in salar i sal_combobox
+    QVector<QString> sallista = databasobjekt.sjukhus_select("salar");
+    for(int i{0}; i < (sallista.length()/2); i++)
+    {
+        QString namn = sallista.at(i*2);
+        QString spec = sallista.at((i*2)+1);
+        ui->comboBox->addItem(namn + " (" + spec + ")");
+    }
+
 }
 
 avbokningsmeny::~avbokningsmeny()
@@ -31,90 +42,51 @@ avbokningsmeny::~avbokningsmeny()
     delete ui;
 }
 
-//Sätter personal till, i boxen givet värde och lägger till namn i comboboxen
-void avbokningsmeny::on_radioButton_2_toggled()
+//Sätter salnamn till i boxen valt värdet
+void avbokningsmeny::on_comboBox_currentTextChanged(const QString in_salnamn)
 {
-    ui->comboBox->clear();
-    //Sätter Qobjekttyp till personal
-    Qobjekttyp = "personal";
-
-    Databas databasobjekt;
-    QVector<QString> namnlista = databasobjekt.sjukhus_select("personal");
-
-    //Lägger in i combobox...
-    for(int i{0}; i < namnlista.length(); i++)
-    {
-        QString name = namnlista.at(i);
-        ui->comboBox->addItem(name);
-    }
-}
-
-//Sätter sal till, i boxen givet värde och lägger till namn i comboboxen
-void avbokningsmeny::on_radioButton_3_toggled()
-{
-    ui->comboBox->clear();
-    Qobjekttyp = "salar";
-
-    Databas databasobjekt;
-    QVector<QString> namnlista = databasobjekt.sjukhus_select("salar");
-
-    //Lägger in i combobox...
-    for(int i{0}; i < namnlista.length(); i++)
-    {
-        QString name = namnlista.at(i);
-        ui->comboBox->addItem(name);
-    }
-}
-
-//Sätter utrustning till, i boxen givet värde och lägger till namn i comboboxen
-void avbokningsmeny::on_radioButton_toggled()
-{
-    ui->comboBox->clear();
-    Qobjekttyp = "utrustning";
-    Databas databasobjekt;
-    QVector<QString> namnlista = databasobjekt.sjukhus_select("utrustning");
-
-    //Lägger in i combobox...
-    for(int i{0}; i < namnlista.length(); i++)
-    {
-        QString name = namnlista.at(i);
-        ui->comboBox->addItem(name);
-    }
+    Qsalnamn = in_salnamn;
 }
 
 //Sätter dag till, i boxen givet värde
-void avbokningsmeny::on_spinBox_valueChanged(int vdag)
+void avbokningsmeny::on_spinBox_valueChanged(int dag1)
 {
-    dag = vdag;
+    dag = dag1;
 }
 
 //Sätter starttid till, i boxen givet värde
-void avbokningsmeny::on_doubleSpinBox_valueChanged(double vstart_tid)
+void avbokningsmeny::on_doubleSpinBox_valueChanged(double in_starttid)
 {
-    start_tid = vstart_tid;
+    start_tid = in_starttid;
 }
 
 //Sätter sluttid till, i boxen givet värde
-void avbokningsmeny::on_doubleSpinBox_2_valueChanged(double vslut_tid)
+void avbokningsmeny::on_doubleSpinBox_2_valueChanged(double in_sluttid)
 {
-    slut_tid = vslut_tid;
+    slut_tid = in_sluttid;
 }
 
 //Anropar avbokningskonstruktorn
-void avbokningsmeny::make_Avbokning(std::string stdobjekttyp,
-                                  std::string stdobjektnamn,
-                                  double start_tid,
-                                  double slut_tid,
-                                  int dag)
+void avbokningsmeny::make_Avbokning(std::string stdsalnamn,
+                                    std::string stdpersonalnamn,
+                                    std::string stdutrustningnamn,
+                                    double start_tid,
+                                    double slut_tid,
+                                    int dag)
 {
     //avboknignskonstruktor
-    Avbokning(stdobjekttyp, stdobjektnamn, start_tid, slut_tid, dag);
+    Avbokning(stdsalnamn,
+              stdpersonalnamn,
+              stdutrustningnamn,
+              start_tid,
+              slut_tid,
+              dag);
 }
 
 void avbokningsmeny::on_pushButton_clicked()
 {
     //ta bort bokning
-    if( (((slut_tid <= start_tid) || !minuter_check(start_tid)) || !minuter_check(slut_tid) ) || Qobjekttyp == "")
+    if( (((slut_tid <= start_tid) || !minuter_check(start_tid)) || !minuter_check(slut_tid) ))
     {
         QMessageBox messageBox;
         messageBox.critical(0,"Fel!","En Felinmatning har skett!");
@@ -122,11 +94,13 @@ void avbokningsmeny::on_pushButton_clicked()
     }
     else
     {
-        stdobjekttyp = Qobjekttyp.toStdString();
-        stdobjektnamn = Qobjektnamn.toStdString();
+        stdsalnamn = Qsalnamn.toStdString();
+        stdpersonalnamn = Qpersonalnamn.toStdString();
+        stdutrustningnamn = Qutrustningnamn.toStdString();
 
-        make_Avbokning(stdobjekttyp,
-                       stdobjektnamn,
+        make_Avbokning(stdsalnamn,
+                       stdpersonalnamn,
+                       stdutrustningnamn,
                        start_tid,
                        slut_tid,
                        dag);
@@ -148,10 +122,4 @@ bool avbokningsmeny::minuter_check(double val)
     {
         return false;
     }
-}
-
-
-void avbokningsmeny::on_comboBox_currentTextChanged(const QString vobjektnamn)
-{
-    Qobjektnamn = vobjektnamn;
 }
