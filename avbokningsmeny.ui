@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>762</width>
+    <width>863</width>
     <height>628</height>
    </rect>
   </property>
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>410</y>
+      <x>430</x>
+      <y>370</y>
       <width>85</width>
       <height>27</height>
      </rect>
@@ -27,26 +27,13 @@
      <string>AVBOKA</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>50</y>
-      <width>131</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Välj vad du vill avboka</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>180</y>
-      <width>211</width>
-      <height>221</height>
+      <x>350</x>
+      <y>110</y>
+      <width>231</width>
+      <height>251</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -57,7 +44,7 @@
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Namn på objekt:</string>
+            <string>Namn på sal:</string>
            </property>
           </widget>
          </item>
@@ -104,38 +91,18 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>360</x>
       <y>80</y>
-      <width>96</width>
-      <height>80</height>
+      <width>211</width>
+      <height>21</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
-      <widget class="QRadioButton" name="radioButton_2">
-       <property name="text">
-        <string>Personal</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="radioButton_3">
-       <property name="text">
-        <string>Sal</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="radioButton">
-       <property name="text">
-        <string>Utrustning</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Välj det som ska avbokas&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -143,7 +110,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>762</width>
+     <width>863</width>
      <height>27</height>
     </rect>
    </property>
