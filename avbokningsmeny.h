@@ -31,29 +31,30 @@ public:
 
 private slots:
 //Medlemsfunktioner
-    void on_radioButton_3_toggled();
-    void on_radioButton_2_toggled();
-    void on_radioButton_toggled();
-    void on_spinBox_valueChanged(int vdag);
+    void on_comboBox_currentTextChanged(const QString in_salnamn);
+    void on_spinBox_valueChanged(int dag1);
     void on_pushButton_clicked();
-    void on_doubleSpinBox_valueChanged(double vstart_tid);
-    void on_doubleSpinBox_2_valueChanged(double vslut_tid);
-    void make_Avbokning(std::string stdobjekttyp,
-                        std::string stdobjektnamn,
+    void on_doubleSpinBox_valueChanged(double in_starttid);
+    void on_doubleSpinBox_2_valueChanged(double in_sluttid);
+    void make_Avbokning(std::string stdsalnamn,
+                        std::string stdpersonalnamn,
+                        std::string stdutrustningnamn,
                         double start_tid,
                         double slut_tid,
                         int dag);
     bool minuter_check(double val);
-    void on_comboBox_currentTextChanged(const QString vobjektnamn);
+
 
 private:
     //Datamedlemmar
     Ui::avbokningsmeny *ui;
 
-    QString Qobjekttyp{""};
-    QString Qobjektnamn;
-    std::string stdobjekttyp;
-    std::string stdobjektnamn;
+    QString Qsalnamn{""};
+    QString Qpersonalnamn{""};
+    QString Qutrustningnamn{""};
+    std::string stdsalnamn;
+    std::string stdpersonalnamn;
+    std::string stdutrustningnamn;
     double start_tid{00.00};
     double slut_tid{00.00};
     int dag{1};
