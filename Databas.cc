@@ -34,7 +34,7 @@ void Databas::sjukhus_insert(const Sjukhus& objekt)
     bool check = false;
 
     if (typ == "Personal")
-    { 
+    {
         text =
             "('" + typ + "', '" +
             namn + "', '" +
@@ -65,8 +65,8 @@ void Databas::sjukhus_insert(const Sjukhus& objekt)
 
     }
     else if (typ == "Salar")
-    { 
-        text = 
+    {
+        text =
             "('" + typ + "', '" +
             namn + "', '" +
             specialitet + "', '" +
@@ -97,8 +97,8 @@ void Databas::sjukhus_insert(const Sjukhus& objekt)
         QSqlDatabase::removeDatabase("qt_sql_default_connection");
     }
     else
-    { 
-        text = 
+    {
+        text =
             "('" + typ + "', '" +
             namn + "', '" +
             specialitet + "')";
@@ -211,34 +211,29 @@ void Databas::avbokning_delete(const Avbokning& objekt)
 
 
 QSqlQuery query;
-          query.prepare("SELECT * FROM bokning WHERE salnamn = '"+salnamn+"' "
-          " AND personalnamn = '"+personalnamn+"' "
-          " AND utrustningnamn = '"+utrustningnamn+"' "
-          " AND start_tid = '"+start_tid+"' "
-          " AND slut_tid = '"+slut_tid+"' ""
-          " AND dag = '"+dag+"'");
+          query.prepare("SELECT * FROM bokning WHERE salnamn = '" + salnamn + "' "
+          " AND personalnamn = '" + personalnamn + "' "
+          " AND utrustningnamn = '" + utrustningnamn + "' "
+          " AND start_tid = '" + start_tid + "' "
+          " AND slut_tid = '" + slut_tid + "' "
+          " AND dag = '" + dag + "'");
+
          // query.prepare("SELECT column1, column2, column4, column3, column5 FROM bokning WHERE [typ = '"+typ+"'] AND [objektnamn = '"+objektnamn+"'] AND [start_tid = '"+start_tid+"'] AND [slut_tid = '"+slut_tid+"'] AND [dag = '"+dag+"']");
-/*
-query.prepare("SELECT typ AND objektnamn AND start_tid AND slut_tid AND dag FROM bokning");
-query.bindValue(":typ", "'"+typ+"'");
-query.bindValue(":objektnamn", "'"+objektnamn+"'");
-query.bindValue(":start_tid", "'"+start_tid+"'");
-query.bindValue(":slut_tid", "'"+slut_tid+"'");
-query.bindValue(":dag", "'"+dag+"'");*/
-	
-	    if(query.exec())
-	    {
-	           QSqlQuery queryDelete;
-	           //queryDelete.prepare("DELETE FROM bokning");
-	      queryDelete.prepare("DELETE FROM bokning WHERE salnamn = '"+salnamn+"' "
-	     " AND personalnamn = '"+personalnamn+"' 
-	     " AND utrustningnamn = '"+utrustningnamn+"' "
-	     " AND start_tid = '"+start_tid+"' 
-	     " AND slut_tid = '"+slut_tid+"' ""
-	     " AND dag = '"+dag+"'");
-	     bool tabort = queryDelete.exec();
-	     if(!tabort)
-	     {
+
+
+        if(query.exec())
+        {
+               QSqlQuery queryDelete;
+               //queryDelete.prepare("DELETE FROM bokning");
+          queryDelete.prepare("DELETE FROM bokning WHERE salnamn = '"+salnamn+"' "
+         " AND personalnamn = '"+personalnamn+"' "
+         " AND utrustningnamn = '"+utrustningnamn+"' "
+         " AND start_tid = '"+start_tid+"' "
+         " AND slut_tid = '"+slut_tid+"' "
+         " AND dag = '"+dag+"'");
+         bool tabort = queryDelete.exec();
+         if(!tabort)
+         {
             qDebug() << queryDelete.lastError();
              }
             }
@@ -263,7 +258,7 @@ query.bindValue(":dag", "'"+dag+"'");*/
 
 QVector<QString> Databas::bokning_select(const QString salnamn,
                                          const QString personalnamn,
-                                         const QString utrustningnamn
+                                         const QString utrustningnamn,
                                          const QString start_tid,
                                          const QString slut_tid,
                                          const QString dag)
@@ -278,9 +273,9 @@ QVector<QString> Databas::bokning_select(const QString salnamn,
           " AND personalnamn = '"+personalnamn+"' "
           " AND utrustningnamn = '"+utrustningnamn+"' "
           " AND start_tid = '"+start_tid+"' "
-          " AND slut_tid = '"+slut_tid+"' ""
+          " AND slut_tid = '"+slut_tid+"' "
           " AND dag = '"+dag+"'");
-          
+
         QVector<QString> bokningslista;
 
         while(query.next())
@@ -309,34 +304,33 @@ QVector<QString> Databas::bokning_select(const QString salnamn,
  *Plockar ut alla tider en specifik sal är bokad på*/
 QVector<QString> Databas::allasal_select(const QString salnamn)
 {
-	{
-	QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
+    {
+        QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
         mydb.setDatabaseName("Databas");
         mydb.open();
-        
-  QSqlQuery query;
-  query.exec("SELECT * FROM bokning WHERE salnamn = (:salnamn)");
-  
-  QVector<QString> salbokningslista;
-  
-  while(query.next())
-  {
-  	
-  	QString salnamn = query.value(0).toString();
-        QString personalnamn = query.value(1).toString();
-        QString utrustningnamn = query.value(2).toString();
-        QString starttid = query.value(3).toString();
-        QString sluttid = query.value(4).toString();
-        QString dag = query.value(5).toString();
-        salbokningslista.push_back(salnamn);
-        salbokningslista.push_back(personalnamn);
-        salbokningslista.push_back(utrustningnamn);
-        salbokningslista.push_back(starttid);
-        salbokningslista.push_back(sluttid);
-        salbokningslista.push_back(dag);
-  }
-  
-    return salbokningslista;
+
+        QSqlQuery query;
+        query.exec("SELECT * FROM bokning WHERE salnamn =  '" + salnamn + "' ");
+
+        QVector<QString> salbokningslista;
+
+        while(query.next())
+        {
+
+            QString salnamn = query.value(0).toString();
+            QString personalnamn = query.value(1).toString();
+            QString utrustningnamn = query.value(2).toString();
+            QString starttid = query.value(3).toString();
+            QString sluttid = query.value(4).toString();
+            QString dag = query.value(5).toString();
+            salbokningslista.push_back(salnamn);
+            salbokningslista.push_back(personalnamn);
+            salbokningslista.push_back(utrustningnamn);
+            salbokningslista.push_back(starttid);
+            salbokningslista.push_back(sluttid);
+            salbokningslista.push_back(dag);
+        }
+        return salbokningslista;
         mydb.close();
     }
     QSqlDatabase::removeDatabase("qt_sql_default_connection");
@@ -346,17 +340,17 @@ QVector<QString> Databas::allasal_select(const QString salnamn)
  *Plockar ut alla bokningar under vald dag*/
 QVector<QString> Databas::allabokning_select(const QString dag)
 {
-	{
-	QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
+    {
+        QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
         mydb.setDatabaseName("Databas");
-        mydb.open();	
-        
-  QsqlQuery query;
-  query.exec("SELECT * FROM bokning WHERE dag = (:dag)");
+        mydb.open();
 
-QVector<QString> allabokningslista;
+        QSqlQuery query;
+        query.exec("SELECT * FROM bokning WHERE dag = '" + dag + "'");
 
-  while(query.next())
+        QVector<QString> allabokningslista;
+
+        while(query.next())
         {
             QString salnamn = query.value(0).toString();
             QString personalnamn = query.value(1).toString();
@@ -382,30 +376,31 @@ QVector<QString> allabokningslista;
  *klasserna Bokningsmeny och Avbokningsmeny */
 QVector<QString> Databas::sjukhus_select(const QString alternativ)
 {
-
     if (alternativ == "personal")
     {
-    {
-        QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
-        mydb.setDatabaseName("Databas");
-        mydb.open();
-
-        qDebug() << "Går in i personal";
-        QSqlQuery query;
-        query.exec("SELECT namn, efternamn, specialitet FROM personal");
-
-        QVector<QString> namnlista;
-
-        while(query.next())
         {
-            QString name = query.value(0).toString();
-            namnlista.push_back(name);
-        }
+            QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
+            mydb.setDatabaseName("Databas");
+            mydb.open();
 
-        return namnlista;
-        mydb.close();
-    }
-    QSqlDatabase::removeDatabase("qt_sql_default_connection");
+            qDebug() << "Går in i personal";
+            QSqlQuery query;
+            query.exec("SELECT namn, efternamn, specialitet FROM personal");
+            QVector<QString> namnlista;
+
+            while(query.next())
+            {
+                QString namn = query.value(0).toString();
+                namnlista.push_back(namn);
+                QString enamn = query.value(1).toString();
+                namnlista.push_back(enamn);
+                QString spec = query.value(2).toString();
+                namnlista.push_back(spec);
+            }
+            return namnlista;
+            mydb.close();
+        }
+        QSqlDatabase::removeDatabase("qt_sql_default_connection");
     }
 
 
@@ -419,14 +414,16 @@ QVector<QString> Databas::sjukhus_select(const QString alternativ)
 
             qDebug() << "Går in i salar";
             QSqlQuery query;
-            query.exec( "SELECT namn, specialitet FROM  salar");
+            query.exec( "SELECT namn, specialitet FROM salar");
 
             QVector<QString> namnlista;
 
             while(query.next())
             {
-                QString name = query.value(0).toString();
-                namnlista.push_back(name);
+                QString namn = query.value(0).toString();
+                namnlista.push_back(namn);
+                QString spec = query.value(1).toString();
+                namnlista.push_back(spec);
             }
             return namnlista;
             mydb.close();
@@ -449,8 +446,10 @@ QVector<QString> Databas::sjukhus_select(const QString alternativ)
 
             while(query.next())
             {
-                QString name = query.value(0).toString();
-                namnlista.push_back(name);
+                QString namn = query.value(0).toString();
+                namnlista.push_back(namn);
+                QString spec = query.value(1).toString();
+                namnlista.push_back(spec);
             }
             return namnlista;
             mydb.close();
