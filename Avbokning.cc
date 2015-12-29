@@ -11,17 +11,13 @@
 #include "Avbokning.h"
 
 Avbokning::Avbokning(string salnamn,
-                     string personalnamn,
-                     string utrustningnamn,
-                     const double start_tid, 
-                     const double slut_tid, 
-                     const int dag) 
-    : 
+                     const double start_tid,
+                     const double slut_tid,
+                     const int dag)
+    :
     salnamn{salnamn},
-    personalnamn{peronsalnamn},
-    utrustningnamn{utrustningnamn},
-    start_tid{start_tid}, 
-    slut_tid{slut_tid}, 
+    start_tid{start_tid},
+    slut_tid{slut_tid},
     dag{dag}
 {
     Databas databasobjekt;
@@ -32,16 +28,6 @@ Avbokning::Avbokning(string salnamn,
 string Avbokning::get_salnamn() const
 {
     return salnamn;
-}
-
-string Avbokning::get_personalnamn() const
-{
-    return personalnamn;
-}
-
-string Avbokning::get_utrustningnamn() const
-{
-    return utrustningnamn;
 }
 
 double Avbokning::get_start_tid() const
