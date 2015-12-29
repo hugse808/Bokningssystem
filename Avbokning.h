@@ -18,8 +18,6 @@ class Avbokning
 public:
 //Defaultkonstruktor
     Avbokning(string salnamn,
-              string personalnamn,
-              string utrustningnamn,
               const double start_tid,
               const double slut_tid,
               const int dag);
