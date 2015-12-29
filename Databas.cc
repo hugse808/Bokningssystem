@@ -197,53 +197,56 @@ void Databas::bokning_insert (const Bokning& objekt)
 void Databas::avbokning_delete(const Avbokning& objekt)
 {
     QString salnamn{QString::fromStdString(objekt.get_salnamn())};
-    QString personalnamn{QString::fromStdString(objekt.get_personalnamn())};
-    QString utrustningnamn{QString::fromStdString(objekt.get_utrustningnamn())};
     QString start_tid{QString::fromStdString(to_string(objekt.get_start_tid()))};
     QString slut_tid{QString::fromStdString(to_string(objekt.get_slut_tid()))};
     QString dag{QString::fromStdString(to_string(objekt.get_dag()))};
-
     {
         {
             QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
             mydb.setDatabaseName("Databas");
             mydb.open();
 
+            //Plockar ut eventuell existerande bokning
+            QSqlQuery query;
+            query.prepare("SELECT start_tid,slut_tid FROM bokning WHERE "
+                          " salnamn = '" + salnamn + "' "
+                          " AND start_tid = '" + start_tid + "' "
+                          " AND slut_tid = '" + slut_tid + "' "
+                          " AND dag = '" + dag + "'");
 
-QSqlQuery query;
-          query.prepare("SELECT * FROM bokning WHERE salnamn = '" + salnamn + "' "
-          " AND personalnamn = '" + personalnamn + "' "
-          " AND utrustningnamn = '" + utrustningnamn + "' "
-          " AND start_tid = '" + start_tid + "' "
-          " AND slut_tid = '" + slut_tid + "' "
-          " AND dag = '" + dag + "'");
+            double exstart{};
+            double exslut{};
 
-         // query.prepare("SELECT column1, column2, column4, column3, column5 FROM bokning WHERE [typ = '"+typ+"'] AND [objektnamn = '"+objektnamn+"'] AND [start_tid = '"+start_tid+"'] AND [slut_tid = '"+slut_tid+"'] AND [dag = '"+dag+"']");
-
-
-        if(query.exec())
-        {
-               QSqlQuery queryDelete;
-               //queryDelete.prepare("DELETE FROM bokning");
-          queryDelete.prepare("DELETE FROM bokning WHERE salnamn = '"+salnamn+"' "
-         " AND personalnamn = '"+personalnamn+"' "
-         " AND utrustningnamn = '"+utrustningnamn+"' "
-         " AND start_tid = '"+start_tid+"' "
-         " AND slut_tid = '"+slut_tid+"' "
-         " AND dag = '"+dag+"'");
-         bool tabort = queryDelete.exec();
-         if(!tabort)
-         {
-            qDebug() << queryDelete.lastError();
-             }
+            query.exec();
+            while(query.next())
+            {
+                exstart = query.value(0).toDouble();
+                exslut = query.value(1).toDouble();
             }
-            else
+
+            
+            //Kontrollerar ifall bokningen finns eller inte 
+            //(exslut/exstart = 0 innebär att den inte finns)
+            if((exstart == 0) && (exslut == 0))
             {
                 QMessageBox messageBox;
                 messageBox.critical(0,"Fel!","Fel! Bokningen finns inte");
                 messageBox.setFixedSize(500,200);
             }
-
+            else
+            {
+                QSqlQuery queryDelete;
+                queryDelete.prepare("DELETE FROM bokning WHERE "
+                                    " salnamn = '"+salnamn+"' "
+                                    " AND start_tid = '"+start_tid+"' "
+                                    " AND slut_tid = '"+slut_tid+"' "
+                                    " AND dag = '"+dag+"'");
+                bool tabort = queryDelete.exec();
+                if(!tabort)
+                {
+                    qDebug() << queryDelete.lastError();
+                }
+            }
         }
         QSqlDatabase::removeDatabase("qt_sql_default_connection");
     }
