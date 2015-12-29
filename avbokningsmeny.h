@@ -37,8 +37,6 @@ private slots:
     void on_doubleSpinBox_valueChanged(double in_starttid);
     void on_doubleSpinBox_2_valueChanged(double in_sluttid);
     void make_Avbokning(std::string stdsalnamn,
-                        std::string stdpersonalnamn,
-                        std::string stdutrustningnamn,
                         double start_tid,
                         double slut_tid,
                         int dag);
@@ -50,11 +48,7 @@ private:
     Ui::avbokningsmeny *ui;
 
     QString Qsalnamn{""};
-    QString Qpersonalnamn{""};
-    QString Qutrustningnamn{""};
     std::string stdsalnamn;
-    std::string stdpersonalnamn;
-    std::string stdutrustningnamn;
     double start_tid{00.00};
     double slut_tid{00.00};
     int dag{1};
