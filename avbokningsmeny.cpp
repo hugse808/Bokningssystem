@@ -34,7 +34,6 @@ avbokningsmeny::avbokningsmeny(QWidget *parent) :
         QString spec = sallista.at((i*2)+1);
         ui->comboBox->addItem(namn + " (" + spec + ")");
     }
-
 }
 
 avbokningsmeny::~avbokningsmeny()
@@ -68,16 +67,12 @@ void avbokningsmeny::on_doubleSpinBox_2_valueChanged(double in_sluttid)
 
 //Anropar avbokningskonstruktorn
 void avbokningsmeny::make_Avbokning(std::string stdsalnamn,
-                                    std::string stdpersonalnamn,
-                                    std::string stdutrustningnamn,
                                     double start_tid,
                                     double slut_tid,
                                     int dag)
 {
     //avboknignskonstruktor
     Avbokning(stdsalnamn,
-              stdpersonalnamn,
-              stdutrustningnamn,
               start_tid,
               slut_tid,
               dag);
@@ -95,12 +90,8 @@ void avbokningsmeny::on_pushButton_clicked()
     else
     {
         stdsalnamn = Qsalnamn.toStdString();
-        stdpersonalnamn = Qpersonalnamn.toStdString();
-        stdutrustningnamn = Qutrustningnamn.toStdString();
 
         make_Avbokning(stdsalnamn,
-                       stdpersonalnamn,
-                       stdutrustningnamn,
                        start_tid,
                        slut_tid,
                        dag);
